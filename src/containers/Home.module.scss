@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 192rem;
+  width: 100%;
+
+  color: white;
+}
+  
+.list_container {
+  flex-basis: 100%;
+}

@@ -1,0 +1,127 @@
+.wrapper {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  position: absolute;
+  top: 0rem;
+
+  width: 100%;
+  height: 100%;
+
+  .container {
+    z-index: 1;
+    position: fixed;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  
+    max-width: 15rem;
+    max-height: 10rem;
+    width: 100%;
+    height: 100%;
+  
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 7rem 0 rgba(255, 255, 255, 0.5);
+
+    transition: all 1s;
+
+    &.create {
+      max-width: 20rem;
+      max-height: 20rem;
+      width: 100%;
+      height: 100%;
+
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 1);
+      color: white;
+
+      box-shadow: 0 0.5rem 7rem 0 rgba(255, 255, 255, 0.5);
+
+      .title {
+        display: none;
+      }
+
+      .close_btn {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0.8rem;
+        height: 0.8rem;
+    
+        background: url("../media/close-white.svg") no-repeat center center/contain;
+        border: none;
+        outline: none;
+    
+        &:hover, &:focus {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &.edit {
+      .title {
+        display: none;
+      }
+    }
+
+    &.delete {
+      
+    }
+  
+    .close_btn {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      width: 0.8rem;
+      height: 0.8rem;
+  
+      background: url("../media/close-white.svg") no-repeat center center/contain;
+      border: none;
+      outline: none;
+  
+      &:hover, &:focus {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
+  
+    .title {
+  
+    }
+  
+    .message {
+      padding: .5rem;
+    }
+  }
+
+  .backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    align-items: initial;
+
+    .container {
+      &.create {
+        top: 7rem;
+      }
+
+      &.edit, &.delete {
+        top: 15rem;
+      }
+    }
+  }
+}

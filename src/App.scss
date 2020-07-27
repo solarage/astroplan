@@ -1,0 +1,85 @@
+.App {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: calc(10px + 2vmin);
+  background-color: transparent;
+  border-bottom: 0.2rem solid floralwhite;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.bg-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
+  .bg-video, .bg-photo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    
+      background: rgba(255,255,255, 0.5);
+    }
+  }
+
+  .bg-photo {
+    display: none;
+    background-size: 192rem;
+    opacity: 0.5;
+  }
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+
+@media screen and (max-width: 600px) {
+  .bg-container {
+    .bg-video {
+      display: none;
+    }
+    .bg-photo {
+      display: block;
+      background: url("./media/space.png") no-repeat center center/cover;
+    }
+  }
+}

@@ -1,0 +1,248 @@
+@mixin placeholder {
+  &::-webkit-input-placeholder { @content; }
+  &:-moz-placeholder           { @content; }
+  &::-moz-placeholder          { @content; }
+  &::-ms-input-placeholder     { @content; }  
+  &:-ms-input-placeholder      { @content; }  
+  &::placeholder               { @content; }  
+}
+
+.container {
+  &.create {
+    max-width: 50rem;
+    width: 100%;
+    margin: 3rem 0;
+
+    font-size: 50px;
+    color: white;
+
+    .input {
+      width: 100%;
+      padding: 0;
+    
+      border: none;
+      color: white;
+      background: transparent;
+      opacity: 1;
+      font-size: 6vmin;
+      text-align: center;
+    
+      @include placeholder {
+        color: white;
+        opacity: 0.8;
+      }
+    
+      &:hover {
+        cursor: pointer;
+        opacity: 0.2;
+        transition: all .5s;
+      }
+    
+      &:focus {
+        outline: none;
+        opacity: 1;
+    
+        @include placeholder {
+          color: transparent;
+        }
+      }
+    }
+  }
+
+  &.edit, &.display {
+    display: inline-flex;
+    width: auto;
+    margin: .5rem;
+
+    &.completed {
+      form {
+        input {
+          color: mediumspringgreen;
+          pointer-events: none;
+          opacity: 0.5;
+        }
+      }
+
+      .edit_elements {
+        .remove_btn, .details {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &.active {
+      font-size: inherit;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .input {
+      border-style: none;
+      background: transparent;
+      color: aqua;
+      font-size: 1rem;
+      text-align: center;
+      transition: all .5s;
+  
+      &:focus {
+        outline: none;
+        opacity: 1;
+      }
+  
+      &:hover {
+        transition: all .5s;
+        cursor: pointer;
+        opacity: 0.5;
+      }
+    }
+
+    .edit_elements {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+
+      .status {
+        border-style: none;
+    
+        &.completed {
+          color: aqua;
+        }
+    
+        &:hover {
+          transition: all .5s;
+          cursor: pointer;
+          opacity: 0.5;
+        }
+      }  
+  
+      .remove_btn {
+        margin: 0 1rem;
+        padding: .5rem;
+        color: white;
+        background: transparent;
+        border: 0.05rem solid lavender;
+        border-radius: 1rem;
+  
+        &:hover {
+          transition: all .5s;
+          cursor: pointer;
+          border: 0.05rem solid darkred;
+          opacity: 0.8;
+        }
+
+        &:focus {
+          outline: none;
+          opacity: 1;
+        }
+      }
+
+      .details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-decoration: none;
+        color: white;
+        font-size: 2rem;
+
+        .dots {
+          height: 2rem;
+          padding-bottom: 1.5rem;
+        }
+
+        &:hover {
+          outline: none;
+          opacity: 0.8;
+        }
+        &:focus {
+          outline: none;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.display {
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    min-height: 15rem;
+    height: auto;
+
+    .input {
+      pointer-events: none;
+
+      &:hover {
+        cursor: inherit;
+        opacity: inherit;
+      }
+    }
+
+    .extended_data {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+
+      .date {
+        margin: 0 1rem;
+  
+        pointer-events: none;
+        color: white;
+        letter-spacing: 0.2rem;
+      }
+  
+      .backward {
+        display: flex;
+        width: 2rem;
+        height: 2rem;
+        margin-top: 5rem;
+  
+        background-image: url(../media/arrow-back-white.svg);
+        background-size: contain;
+
+        &:hover, &:focus {
+          opacity: 0.2;
+          outline: none;
+          transition: all .5s;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .container {
+    &.create {
+      max-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    &.create {
+      margin: 3rem 0 2rem 0;
+
+      .input {
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    &.edit {
+      .edit_elements {
+        .remove_btn, .details {
+          &:hover {
+            border-color: initial;
+            opacity: initial;
+          }
+        }
+      }
+    }
+  }
+}

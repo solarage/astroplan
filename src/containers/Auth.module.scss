@@ -1,0 +1,13 @@
+.container {
+  min-height: 15rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  
+  .notification {
+    margin: .5rem;
+
+    color: red;
+  }
+}
