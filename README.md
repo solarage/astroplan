@@ -1,5 +1,5 @@
 # Astroplan
-###[React](https://reactjs.org/) CRUD App with Auth.
+**[React](https://reactjs.org/) CRUD App with Auth.**
 
 ***
 
