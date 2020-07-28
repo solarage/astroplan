@@ -8,6 +8,7 @@ const initialState = {
   signInBtnTitle: 'SignIn',
   registerBtnTitle: 'Register',
   signOutBtnTitle: 'SignOut'
+  user: {}
 };
 
 const user = (state = initialState, { type, payload }) => {

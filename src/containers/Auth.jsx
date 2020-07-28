@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { isEmpty } from '../utils/utils';
+
 import useStore from '../hooks/useStore';
 import { logIn, register } from '../actions/actions';
 import {
@@ -21,6 +23,7 @@ export default function Auth() {
   const signInBtnTitle = getSignInBtnTitle(state);
   const registerBtnTitle = getRegisterBtnTitle(state);
   const authFormWarning = getAuthFormWarning(state);
+  const isAuth = !isEmpty(user);
 
   function handleLogin(email, password) {
     actions.logIn(email, password)
@@ -33,7 +36,7 @@ export default function Auth() {
   }
 
   return (
-    user
+    isAuth
       ? <Redirect to="/" />
       : (
         <div className={s.container}>

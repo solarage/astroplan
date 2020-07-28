@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import { isEmpty } from './utils/utils';
+
 import useStore from './hooks/useStore';
 import {
   initAuth,
@@ -32,13 +34,14 @@ export default function App() {
     });
   const user = getUser(state);
   const title = getAppTitle(state);
+  const isAuth = !isEmpty(user);
 
   useEffect(() => {
     actions.initAuth();
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (isAuth) {
       (async () => {
         actions.showLoader();
         await actions.getTodos(user.uid);

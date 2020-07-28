@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isEmpty } from '../utils/utils';
+
 import useStore from '../hooks/useStore';
 import {
   createTodo,
@@ -40,6 +42,7 @@ export default function Home() {
       closeModal
     });
   const user = getUser(state);
+  const isAuth = !isEmpty(user);
   const todos = getTodosList(state);
   const defaultFormText = getDefaultFormText(state);
   const removeBtnTitle = getRemoveBtnTitle(state);
@@ -77,26 +80,28 @@ export default function Home() {
   }
 
   return (
-    <div className={s.container}>
-      <Sidebar
-        user={user}
-        signOutBtnTitle={signOutBtnTitle}
-        onLogOut={logOut}
-      />
+    isAuth && (
+      <div className={s.container}>
+        <Sidebar
+          user={user}
+          signOutBtnTitle={signOutBtnTitle}
+          onLogOut={logOut}
+        />
 
-      <TodoForm
-        onSubmit={handleSubmit}
-        mode="create"
-        defaultFormText={defaultFormText}
-      />
+        <TodoForm
+          onSubmit={handleSubmit}
+          mode="create"
+          defaultFormText={defaultFormText}
+        />
 
-      <TodoList
-        todos={todos}
-        onUpdate={handleSubmit}
-        onDelete={handleDelete}
-        onChangeStatus={handleChange}
-        removeBtnTitle={removeBtnTitle}
-      />
-    </div>
+        <TodoList
+          todos={todos}
+          onUpdate={handleSubmit}
+          onDelete={handleDelete}
+          onChangeStatus={handleChange}
+          removeBtnTitle={removeBtnTitle}
+        />
+      </div>
+    )
   );
 }
