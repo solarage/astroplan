@@ -11,6 +11,10 @@ function ensureFunction(fn, fallback) {
   return typeof fn === 'function' ? fn : fallback(fn);
 }
 
+function isNone(value) {
+  return value === undefined || value === null;
+}
+
 export function getter(name) {
   const path = name ? name.split('.') : [];
   const len = path.length;
@@ -49,4 +53,12 @@ export function eql(key, value) {
   return function (context) {
     return key.call(this, context) === value.call(this, context);
   };
+}
+
+export function isEmpty(value) {
+  if (isNone(value)) return true;
+
+  return (typeof value === 'number' || value === 'boolean')
+    ? false
+    : !Object.keys(value).length;
 }
