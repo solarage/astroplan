@@ -31,24 +31,29 @@ export default function TodoForm({
   const isCreateMode = checkCreateMode({ mode });
   const isEditMode = checkEditMode({ mode });
 
+  function transformDate(ms) {
+    const transformedDate = `${dayjs(ms).format('DD.MM.YYYY')} 
+      ${dayjs(ms).format('HH:mm')}`;
+
+    return transformedDate;
+  }
+
   useEffect(() => {
     if (isDisplayMode) {
-      const date = transformDate(createdAt);
+      const readableDate = transformDate(createdAt);
 
-      setDate(date);
+      setDate(readableDate);
     }
   });
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (!newTitle || title === newTitle)
-      return;
+    if (!newTitle || title === newTitle) return;
 
     onSubmit({ todoId: id, title: newTitle, mode });
 
-    if (isCreateMode)
-      setTitle('');
+    if (isCreateMode) setTitle('');
   }
 
   function handleChange(status) {
@@ -60,13 +65,6 @@ export default function TodoForm({
     if (event.key === 'Enter') {
       event.target.blur();
     }
-  }
-
-  function transformDate(createdAt) {
-    const date = `${dayjs(createdAt).format('DD.MM.YYYY')} 
-      ${dayjs(createdAt).format('HH:mm')}`;
-
-    return date;
   }
 
   return (

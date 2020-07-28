@@ -13,19 +13,19 @@ export default function TodoDetails({ match }) {
   const { state } = useStore(state => state.tasks, () => {});
   const todos = getTodosList(state);
 
+  function detectCurrentTodo(id, tasks) {
+    return tasks.find((task) => task.id === id);
+  }
+
   useEffect(() => {
-    const id = match.params.id;
+    const { params: { id } } = match;
 
     if (id) {
-      const currentTodo = detectCurrentTodo(id, todos);
+      const todo = detectCurrentTodo(id, todos);
 
-      setTodo(currentTodo);
+      setTodo(todo);
     }
   }, [match.params.id, todos]);
-
-  function detectCurrentTodo(id, todos) {
-    return todos.find((task) => task.id === id);
-  }
 
   return (
     <div className={s.container}>

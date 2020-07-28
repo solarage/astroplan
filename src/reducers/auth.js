@@ -4,10 +4,6 @@ import {
 } from '../actions/actions';
 
 const initialState = {
-  user: null,
-  signInBtnTitle: 'SignIn',
-  registerBtnTitle: 'Register',
-  signOutBtnTitle: 'SignOut'
   user: {}
 };
 

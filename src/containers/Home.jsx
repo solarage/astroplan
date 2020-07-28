@@ -73,7 +73,7 @@ export default function Home() {
   }
 
   function handleDelete(todoId) {
-    const settings = modalSettings['delete'];
+    const settings = modalSettings.delete;
 
     actions.deleteTodo(todoId);
     displayModal(settings);
