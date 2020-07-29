@@ -9,6 +9,7 @@ const getUI = G('ui');
 
 /* User */
 const getUser = firstOf(G('user'), G('auth.user'));
+const getError = firstOf(G('error'), G('auth.error'));
 
 /* Tasks */
 const getTodosList = firstOf(G('todos'), G('tasks.todos'));
@@ -57,6 +58,7 @@ export {
   getUI,
 
   getUser,
+  getError,
 
   getTodosList,
   checkDisplayMode,

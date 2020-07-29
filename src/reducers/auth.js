@@ -1,6 +1,7 @@
 import {
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SET_ERROR
 } from '../actions/actions';
 
 const initialState = {
@@ -18,6 +19,11 @@ const user = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: null
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: payload.error
       };
 
     default:

@@ -7,6 +7,7 @@ export const DELETE_TODO = 'DELETE_TODO';
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const SET_ERROR = 'SET_ERROR';
 
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
@@ -40,6 +41,12 @@ export function logIn(email, password) {
     });
 
     const data = await api.signIn(email, password)
+      .catch((error) => {
+        dispatch({
+          type: SET_ERROR,
+          payload: { error }
+        });
+      })
       .then(() => dispatch({
         type: HIDE_LOADER,
         payload: { loading: false }
@@ -61,6 +68,12 @@ export function register(email, password) {
     });
 
     const data = await api.register(email, password)
+      .catch((error) => {
+        dispatch({
+          type: SET_ERROR,
+          payload: { error }
+        });
+      })
       .then(() => dispatch({
         type: HIDE_LOADER,
         payload: { loading: false }

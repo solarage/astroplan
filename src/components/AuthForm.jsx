@@ -7,27 +7,22 @@ export default function AuthForm({
   signInBtnTitle,
   registerBtnTitle,
   authFormWarning,
-  onLogin,
-  onRegister
+  onAuth
 }) {
   const [email, setEmail] = useState('');
   const [warning, setWarning] = useState('');
   const [password, setPassword] = useState('');
 
   function handleAuthBtnClick(type) {
+    const data = { email, password, type };
+
     if (!email || !password) {
       setWarning(authFormWarning);
 
       return setTimeout(() => setWarning(''), 1500);
     }
 
-    switch (type) {
-      case 'login':
-        return onLogin(email, password);
-      case 'register':
-        return onRegister(email, password);
-      default: throw new Error('interrupt');
-    }
+    return onAuth(data);
   }
 
   return (
@@ -77,14 +72,12 @@ AuthForm.propTypes = {
   signInBtnTitle: PropTypes.string,
   registerBtnTitle: PropTypes.string,
   authFormWarning: PropTypes.string,
-  onLogin: PropTypes.func,
-  onRegister: PropTypes.func
+  onAuth: PropTypes.func
 };
 
 AuthForm.defaultProps = {
   signInBtnTitle: 'SignIn',
   registerBtnTitle: 'Register',
   authFormWarning: 'Fill out all required fields',
-  onLogin: () => {},
-  onRegister: () => {}
+  onAuth: () => {}
 };

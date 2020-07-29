@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { isEmpty } from '../utils/utils';
@@ -7,6 +7,7 @@ import useStore from '../hooks/useStore';
 import { logIn, register } from '../actions/actions';
 import {
   getUser,
+  getError,
   getSignInBtnTitle,
   getRegisterBtnTitle,
   getAuthFormWarning
@@ -17,22 +18,24 @@ import AuthForm from '../components/AuthForm';
 import s from './Auth.module.scss';
 
 export default function Auth() {
-  const [error, setError] = useState('');
   const { state, actions } = useStore(state => state, { logIn, register });
   const user = getUser(state);
+  const error = getError(state);
   const signInBtnTitle = getSignInBtnTitle(state);
   const registerBtnTitle = getRegisterBtnTitle(state);
   const authFormWarning = getAuthFormWarning(state);
   const isAuth = !isEmpty(user);
 
-  function handleLogin(email, password) {
-    actions.logIn(email, password)
-      .catch(error => setError(error.message));
-  }
+  function handleAuth(data) {
+    const { email, password, type } = data;
 
-  function handleRegister(email, password) {
-    actions.register(email, password)
-      .catch(error => setError(error.message));
+    switch (type) {
+      case 'login':
+        return actions.logIn(email, password);
+      case 'register':
+        return actions.register(email, password);
+      default: throw new Error('interrupt');
+    }
   }
 
   return (
@@ -41,15 +44,14 @@ export default function Auth() {
       : (
         <div className={s.container}>
           {
-            error && <div className={s.notification}>{error}</div>
+            error && <div className={s.notification}>{error.message}</div>
           }
 
           <AuthForm
             signInBtnTitle={signInBtnTitle}
             registerBtnTitle={registerBtnTitle}
             authFormWarning={authFormWarning}
-            onLogin={handleLogin}
-            onRegister={handleRegister}
+            onAuth={handleAuth}
           />
         </div>
       )
