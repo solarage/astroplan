@@ -33,7 +33,20 @@ export function initAuth() {
 }
 
 export function logIn(email, password) {
-  return api.signIn(email, password).then(() => ({}));
+  return async (dispatch) => {
+    dispatch({
+      type: SHOW_LOADER,
+      payload: { loading: true }
+    });
+
+    const data = await api.signIn(email, password)
+      .then(() => dispatch({
+        type: HIDE_LOADER,
+        payload: { loading: false }
+      }));
+
+    return data;
+  };
 }
 
 export function logOut() {
@@ -41,7 +54,20 @@ export function logOut() {
 }
 
 export function register(email, password) {
-  return api.register(email, password).then(() => {});
+  return async (dispatch) => {
+    dispatch({
+      type: SHOW_LOADER,
+      payload: { loading: true }
+    });
+
+    const data = await api.register(email, password)
+      .then(() => dispatch({
+        type: HIDE_LOADER,
+        payload: { loading: false }
+      }));
+
+    return data;
+  };
 }
 
 /* Tasks */
