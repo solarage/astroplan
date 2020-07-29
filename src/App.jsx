@@ -6,10 +6,7 @@ import { isEmpty } from './utils/utils';
 import useStore from './hooks/useStore';
 import {
   initAuth,
-  getTodos,
-
-  showLoader,
-  hideLoader
+  getTodos
 } from './actions/actions';
 import { getAppTitle, getUser } from './getters/getters';
 
@@ -27,10 +24,7 @@ export default function App() {
   const { state, actions } = useStore(state => state,
     {
       initAuth,
-      getTodos,
-
-      showLoader,
-      hideLoader
+      getTodos
     });
   const user = getUser(state);
   const title = getAppTitle(state);
@@ -41,13 +35,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isAuth) {
-      (async () => {
-        actions.showLoader();
-        await actions.getTodos(user.uid);
-        actions.hideLoader();
-      })();
-    }
+    if (isAuth) actions.getTodos(user.uid);
   }, [user]);
 
   return (

@@ -72,16 +72,27 @@ export function register(email, password) {
 
 /* Tasks */
 
-export async function getTodos(userId) {
-  const todosList = await api.getTodos(userId)
-    .then((todos) => ({
-      type: GET_TODOS,
-      payload: {
-        todos
-      }
-    }));
+export function getTodos(userId) {
+  return async (dispatch) => {
+    dispatch({
+      type: SHOW_LOADER,
+      payload: { loading: true }
+    });
 
-  return todosList;
+    const todoList = await api.getTodos(userId)
+      .then((todos) => dispatch({
+        type: GET_TODOS,
+        payload: {
+          todos
+        }
+      }))
+      .then(() => dispatch({
+        type: HIDE_LOADER,
+        payload: { loading: false }
+      }));
+
+    return todoList;
+  };
 }
 
 export async function createTodo(data) {
@@ -133,21 +144,5 @@ export function closeModal() {
   return {
     type: CLOSE_MODAL,
     payload: { visible: false }
-  };
-}
-
-/* Loader */
-
-export function showLoader() {
-  return {
-    type: SHOW_LOADER,
-    payload: { loading: true }
-  };
-}
-
-export function hideLoader() {
-  return {
-    type: HIDE_LOADER,
-    payload: { loading: false }
   };
 }
