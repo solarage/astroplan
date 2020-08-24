@@ -3,9 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function useStore(
   mapStateToProps = (state) => state,
-  mapDispatchToProps = () => {}
+  mapDispatchToProps = () => {},
+  transformFn
 ) {
-  const state = useSelector((selectedState) => mapStateToProps(selectedState));
+  const state = useSelector((store) => {
+    if (transformFn) {
+      return transformFn(mapStateToProps(store));
+    }
+    return mapStateToProps(store);
+  });
+
   const dispatch = useDispatch();
 
   const actions = bindActionCreators(mapDispatchToProps, dispatch);
