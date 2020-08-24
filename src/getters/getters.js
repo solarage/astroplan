@@ -12,6 +12,7 @@ const getUser = firstOf(G('user'), G('auth.user'));
 const getError = firstOf(G('error'), G('auth.error'));
 
 /* Tasks */
+const getId = firstOf(G('id'), G('params.id'), G('match.params.id'));
 const getTodosList = firstOf(G('todos'), G('tasks.todos'));
 
 const checkDisplayMode = eql('mode', 'display');
@@ -60,6 +61,7 @@ export {
   getUser,
   getError,
 
+  getId,
   getTodosList,
   checkDisplayMode,
   checkCreateMode,

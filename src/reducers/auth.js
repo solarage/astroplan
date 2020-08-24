@@ -18,7 +18,8 @@ const user = (state = initialState, { type, payload }) => {
     case LOGOUT_USER:
       return {
         ...state,
-        user: null
+        user: null,
+        error: null
       };
     case SET_ERROR:
       return {

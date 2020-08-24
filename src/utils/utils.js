@@ -62,3 +62,7 @@ export function isEmpty(value) {
     ? false
     : !Object.keys(value).length;
 }
+
+export function detect(id) {
+  return (items) => items.find((item) => item.id === id);
+}
